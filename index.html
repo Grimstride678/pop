@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click the Button Game</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: white;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    #gameButton, .start-btn {
+      background-color: #ffffff;
+      color: #0072ff;
+      border: none;
+      padding: 20px 40px;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      margin: 20px 10px;
+      transition: transform 0.2s;
+    }
+
+    #gameButton:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    #gameButton:hover:not(:disabled), .start-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .scoreboard {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .scoreboard span {
+      font-weight: bold;
+      font-size: 28px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔥 Click the Button Game 🔥</h1>
+  <p>Click as many times as you can in <strong>10 seconds!</strong></p>
+
+  <button id="gameButton" onclick="clickButton()" disabled>Click Me!</button>
+  <button class="start-btn" onclick="startGame()">Start Game</button>
+
+  <div class="scoreboard">
+    <p>Score: <span id="score">0</span></p>
+    <p>Time Left: <span id="time">10</span> seconds</p>
+  </div>
+
+  <script>
+    let score = 0;
+    let timeLeft = 10;
+    let timer;
+
+    function startGame() {
+      score = 0;
+      timeLeft = 10;
+      document.getElementById("score").textContent = score;
+      document.getElementById("time").textContent = timeLeft;
+      document.getElementById("gameButton").disabled = false;
+
+      clearInterval(timer);
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("time").textContent = timeLeft;
+        if (timeLeft === 0) {
+          clearInterval(timer);
+          document.getElementById("gameButton").disabled = true;
+          alert("⏰ Time's up! You scored " + score + " points!");
+        }
+      }, 1000);
+    }
+
+    function clickButton() {
+      score++;
+      document.getElementById("score").textContent = score;
+    }
+  </script>
+
+</body>
+</html>
